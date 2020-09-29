@@ -1,0 +1,5 @@
+<div class="topbar">
+    <div class="topbar-column"><a class="social-button shape-circle sb-facebook sb-dark" target="_blank" href="https://www.facebook.com/APBetiquetas/"><i class="socicon-facebook"></i></a><a class="social-button shape-circle sb-linkedin sb-dark" target="_blank" href="https://www.linkedin.com/company/apb-etiquetas/"><i class="socicon-linkedin"></i></a><a class="social-button shape-circle sb-instagram sb-dark" target="_blank" href="https://www.instagram.com/apbetiquetas/"><i class="socicon-instagram"></i></a><a class="social-button shape-circle sb-google-plus sb-dark" target="_blank" href="https://api.whatsapp.com/send?phone=5541995093017&text=Ol%C3%A1%2C%20voc%C3%AA%20pode%20me%20ajudar%20tirando%20uma%20d%C3%BAvida%20%3F"><i class="socicon-whatsapp"></i></a>
+    </div>
+    
+  </div>
