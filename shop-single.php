@@ -35,8 +35,11 @@ include "./estrutura/head.php";
 
   $objProduto = $tray->buscarDetalhesDoProduto($idProduto);
 
-  $produto = $objProduto->Products[0]->Product;
+  $produto = $objProduto->Product;
 
+  $produtosDaCategoria = $tray->buscarProdutosDaCategoria($produto->category_id);
+
+  // print_r($produtosDaCategoria->Products[1]->Product->name)
   //print_r($objProduto->Products[0]->Product->ProductImage[0]->http);
   ?>
 
@@ -66,9 +69,9 @@ include "./estrutura/head.php";
       <div class="row">
         <!-- Poduct Gallery-->
         <div class="col-md-6">
-          <div class="product-gallery"><span class="product-badge text-danger">30% Off</span>
+          <div class="product-gallery">
             <div class="gallery-wrapper">
-              <div class="gallery-item video-btn text-center"><a href="#" data-toggle="tooltip" data-type="video" data-video="&lt;div class=&quot;wrapper&quot;&gt;&lt;div class=&quot;video-wrapper&quot;&gt;&lt;iframe class=&quot;pswp__video&quot; width=&quot;960&quot; height=&quot;640&quot; src=&quot;//www.youtube.com/embed/B81qd2v6alw?rel=0&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;&lt;/div&gt;&lt;/div&gt;" title="Watch video"></a></div>
+              <!-- <div class="gallery-item video-btn text-center"><a href="#" data-toggle="tooltip" data-type="video" data-video="&lt;div class=&quot;wrapper&quot;&gt;&lt;div class=&quot;video-wrapper&quot;&gt;&lt;iframe class=&quot;pswp__video&quot; width=&quot;960&quot; height=&quot;640&quot; src=&quot;//www.youtube.com/embed/B81qd2v6alw?rel=0&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;&lt;/div&gt;&lt;/div&gt;" title="Watch video"></a></div> -->
             </div>
             <div class="product-carousel owl-carousel gallery-wrapper">
               <?php
@@ -119,37 +122,37 @@ include "./estrutura/head.php";
         <div class="col-md-6">
           <div class="padding-top-2x mt-2 hidden-md-up"></div>
           <div class="rating-stars"><i class="icon-star filled"></i><i class="icon-star filled"></i><i class="icon-star filled"></i><i class="icon-star filled"></i><i class="icon-star"></i>
-          <!-- </div><span class="text-muted align-middle">&nbsp;&nbsp;4.2 | 3 customer reviews</span> -->
-          <h2 class="padding-top-1x text-normal"><?php echo $produto->name ?></h2><span class="h2 d-block">
-            R$ <?php echo $produto->price ?></span>
-          <p><?php echo $produto->description ?></p>
-        
-          <div class="pt-1 mb-2"><span class="text-medium">Estoque disponivel:</span> <?php echo $produto->stock ?></div>
-          <div class="padding-bottom-1x mb-2"><span class="text-medium">Categorias:&nbsp;</span><a class="navi-link" href="#">Men’s shoes,</a><a class="navi-link" href="#"> Snickers,</a><a class="navi-link" href="#"> Sport shoes</a></div>
-          <hr class="mb-3">
-          <div class="d-flex flex-wrap justify-content-between">
-            <div class="entry-share mt-2 mb-2"><span class="text-muted">Share:</span>
-              <div class="share-links"><a class="social-button shape-circle sb-facebook" href="#" data-toggle="tooltip" data-placement="top" title="Facebook"><i class="socicon-facebook"></i></a><a class="social-button shape-circle sb-twitter" href="#" data-toggle="tooltip" data-placement="top" title="Twitter"><i class="socicon-twitter"></i></a><a class="social-button shape-circle sb-instagram" href="#" data-toggle="tooltip" data-placement="top" title="Instagram"><i class="socicon-instagram"></i></a><a class="social-button shape-circle sb-google-plus" href="#" data-toggle="tooltip" data-placement="top" title="Google +"><i class="socicon-googleplus"></i></a></div>
-            </div>
-            <div class="sp-buttons mt-2 mb-2">
-              <button class="btn btn-outline-secondary btn-sm btn-wishlist" data-toggle="tooltip" title="Whishlist"><i class="icon-heart"></i></button>
-              <button class="btn btn-primary" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check" data-toast-title="<?php echo $produto->name ?>" data-toast-message="adicionado ao carrinho com sucesso!"><i class="icon-bag"></i> Adicionar ao carrinho</button>
+            <!-- </div><span class="text-muted align-middle">&nbsp;&nbsp;4.2 | 3 customer reviews</span> -->
+            <h2 class="padding-top-1x text-normal"><?php echo $produto->name ?></h2><span class="h2 d-block">
+              R$ <?php echo $produto->price ?></span>
+            <p><?php echo $produto->description ?></p>
+
+            <div class="pt-1 mb-2"><span class="text-medium">Estoque disponivel:</span> <?php echo $produto->stock ?></div>
+            <div class="padding-bottom-1x mb-2"><span class="text-medium">Categorias:&nbsp;</span><a class="navi-link" href="#"><?php echo $produto->category_name ?> </a></div>
+            <hr class="mb-3">
+            <div class="d-flex flex-wrap justify-content-between">
+              <div class="entry-share mt-2 mb-2"><span class="text-muted">Share:</span>
+                <div class="share-links"><a class="social-button shape-circle sb-facebook" href="#" data-toggle="tooltip" data-placement="top" title="Facebook"><i class="socicon-facebook"></i></a><a class="social-button shape-circle sb-twitter" href="#" data-toggle="tooltip" data-placement="top" title="Twitter"><i class="socicon-twitter"></i></a><a class="social-button shape-circle sb-instagram" href="#" data-toggle="tooltip" data-placement="top" title="Instagram"><i class="socicon-instagram"></i></a><a class="social-button shape-circle sb-google-plus" href="#" data-toggle="tooltip" data-placement="top" title="Google +"><i class="socicon-googleplus"></i></a></div>
+              </div>
+              <div class="sp-buttons mt-2 mb-2">
+                <button class="btn btn-outline-secondary btn-sm btn-wishlist" data-toggle="tooltip" title="Whishlist"><i class="icon-heart"></i></button>
+                <button class="btn btn-primary" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check" data-toast-title="<?php echo $produto->name ?>" data-toast-message="adicionado ao carrinho com sucesso!"><i class="icon-bag"></i> Adicionar ao carrinho</button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <!-- Product Tabs-->
-      <div class="row padding-top-3x mb-3">
-        <div class="col-lg-10 offset-lg-1">
-          <ul class="nav nav-tabs" role="tablist">
-            <li class="nav-item"><a class="nav-link active" href="#description" data-toggle="tab" role="tab">Description</a></li>
-            <li class="nav-item"><a class="nav-link" href="#reviews" data-toggle="tab" role="tab">Reviews (3)</a></li>
-          </ul>
-          <div class="tab-content">
-            <div class="tab-pane fade show active" id="description" role="tabpanel">
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error blanditiis a, deserunt magnam pariatur quam suscipit quae. Veniam, deserunt reprehenderit quasi hic recusandae itaque omnis fugiat animi architecto facilis repellendus. Commodi dolorem, eius consectetur. Amet maiores nemo at nobi s aspernatur velit, sequi odio, a veritatis inventore autem esse provident in? Placeat, sunt!</p>
-              <p class="mb-30">Iste assumenda, vitae, aliquam excepturi libero quia ullam quisquam tenetur id sint labore. Pariatur praesentium velit, fugit facere maxime voluptates optio qui? Quidem obcaecati necessitatibus rem aspernatur, mollitia, assumenda explicabo numquam minus eos sapiente totam dicta, laborum dolorum! Vitae distinctio quos non ut fugiat.</p>
-              <div class="row">
+        <!-- Product Tabs-->
+        <div class="row padding-top-3x mb-3">
+          <div class="col-lg-10 offset-lg-1">
+            <ul class="nav nav-tabs" role="tablist">
+              <li class="nav-item"><a class="nav-link active" href="#description" data-toggle="tab" role="tab">Descrição</a></li>
+              <!-- <li class="nav-item"><a class="nav-link" href="#reviews" data-toggle="tab" role="tab">Reviews (3)</a></li> -->
+            </ul>
+            <div class="tab-content">
+              <div class="tab-pane fade show active" id="description" role="tabpanel">
+                <p><?php echo $produto->description ?></p>
+
+                <!-- <div class="row">
                 <div class="col-sm-6">
                   <dl>
                     <dt>Materials:</dt>
@@ -170,10 +173,10 @@ include "./estrutura/head.php";
                     <dd>Taiwan</dd>
                   </dl>
                 </div>
+              </div> -->
               </div>
-            </div>
-            <div class="tab-pane fade" id="reviews" role="tabpanel">
-              <!-- Review-->
+              <!-- <div class="tab-pane fade" id="reviews" role="tabpanel">
+            
               <div class="comment">
                 <div class="comment-author-ava"><img src="img/reviews/01.jpg" alt="Review author"></div>
                 <div class="comment-body">
@@ -188,7 +191,7 @@ include "./estrutura/head.php";
                   <div class="comment-footer"><span class="comment-meta">Francis Burton</span></div>
                 </div>
               </div>
-              <!-- Review-->
+             
               <div class="comment">
                 <div class="comment-author-ava"><img src="img/reviews/02.jpg" alt="Review author"></div>
                 <div class="comment-body">
@@ -203,7 +206,7 @@ include "./estrutura/head.php";
                   <div class="comment-footer"><span class="comment-meta">Maggie Scott</span></div>
                 </div>
               </div>
-              <!-- Review-->
+              
               <div class="comment">
                 <div class="comment-author-ava"><img src="img/reviews/03.jpg" alt="Review author"></div>
                 <div class="comment-body">
@@ -218,7 +221,7 @@ include "./estrutura/head.php";
                   <div class="comment-footer"><span class="comment-meta">Jacob Hammond</span></div>
                 </div>
               </div>
-              <!-- Review Form-->
+             
               <h5 class="mb-30 padding-top-1x">Leave Review</h5>
               <form class="row" method="post">
                 <div class="col-sm-6">
@@ -261,30 +264,42 @@ include "./estrutura/head.php";
                   <button class="btn btn-outline-primary" type="submit">Submit Review</button>
                 </div>
               </form>
+            </div> -->
             </div>
           </div>
         </div>
-      </div>
-      <!-- Related Products Carousel-->
-      <h3 class="text-center padding-top-2x mt-2 padding-bottom-1x">You May Also Like</h3>
-      <!-- Carousel-->
-      <div class="owl-carousel" data-owl-carousel="{ &quot;nav&quot;: false, &quot;dots&quot;: true, &quot;margin&quot;: 30, &quot;responsive&quot;: {&quot;0&quot;:{&quot;items&quot;:1},&quot;576&quot;:{&quot;items&quot;:2},&quot;768&quot;:{&quot;items&quot;:3},&quot;991&quot;:{&quot;items&quot;:4},&quot;1200&quot;:{&quot;items&quot;:4}} }">
-        <!-- Product-->
-        <div class="grid-item">
-          <div class="product-card">
-            <div class="product-badge text-danger">22% Off</div><a class="product-thumb" href="shop-single.html"><img src="img/shop/products/09.jpg" alt="Product"></a>
-            <h3 class="product-title"><a href="shop-single.html">Rocket Dog</a></h3>
-            <h4 class="product-price">
-              <del>$44.95</del>$34.99
-            </h4>
-            <div class="product-buttons">
-              <button class="btn btn-outline-secondary btn-sm btn-wishlist" data-toggle="tooltip" title="Whishlist"><i class="icon-heart"></i></button>
-              <button class="btn btn-outline-primary btn-sm" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check" data-toast-title="Product" data-toast-message="successfuly added to cart!">Add to Cart</button>
+        <!-- Related Products Carousel-->
+        <h3 class="text-center padding-top-2x mt-2 padding-bottom-1x">Você pode gostar</h3>
+        <!-- Carousel-->
+        <div class="owl-carousel" data-owl-carousel="{ &quot;nav&quot;: false, &quot;dots&quot;: true, &quot;margin&quot;: 30, &quot;responsive&quot;: {&quot;0&quot;:{&quot;items&quot;:1},&quot;576&quot;:{&quot;items&quot;:2},&quot;768&quot;:{&quot;items&quot;:3},&quot;991&quot;:{&quot;items&quot;:4},&quot;1200&quot;:{&quot;items&quot;:4}} }">
+
+          <?php
+
+          for ($i = 0; $i < count($produtosDaCategoria->Products); $i++) {
+
+          ?>
+            <!-- Product-->
+            <div class="grid-item">
+              <div class="product-card">
+                <div class="product-badge text-danger"></div><a class="product-thumb" href="shop-single.php?id=<?php echo $produtosDaCategoria->Products[$i]->Product->id ?>"><img src="<?php echo $produtosDaCategoria->Products[$i]->Product->ProductImage[0]->http ?>" alt="Product"></a>
+                <h3 class="product-title"><a href="shop-single.php?id=<?php echo $produtosDaCategoria->Products[$i]->Product->id ?>"><?php echo $produtosDaCategoria->Products[$i]->Product->name ?></a></h3>
+                <h4 class="product-price">
+                R$ <?php echo $produtosDaCategoria->Products[$i]->Product->price ?>
+                </h4>
+                <div class="product-buttons">
+                  <!-- <button class="btn btn-outline-secondary btn-sm btn-wishlist" data-toggle="tooltip" title="Whishlist"><i class="icon-heart"></i></button> -->
+                  <button class="btn btn-outline-primary btn-sm" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check" data-toast-title="<?php echo $produtosDaCategoria->Products[$i]->Product->name ?>" data-toast-message="adicionado ao carrinho com sucesso!">Adicionar ao carrinho</button>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-        <!-- Product-->
-        <div class="grid-item">
+
+          <?php
+
+          }
+          ?>
+
+          <!-- Product-->
+          <!-- <div class="grid-item">
           <div class="product-card">
             <div class="rating-stars"><i class="icon-star filled"></i><i class="icon-star filled"></i><i class="icon-star filled"></i><i class="icon-star filled"></i><i class="icon-star"></i>
             </div><a class="product-thumb" href="shop-single.html"><img src="img/shop/products/03.jpg" alt="Product"></a>
@@ -296,7 +311,7 @@ include "./estrutura/head.php";
             </div>
           </div>
         </div>
-        <!-- Product-->
+        
         <div class="grid-item">
           <div class="product-card"><a class="product-thumb" href="shop-single.html"><img src="img/shop/products/12.jpg" alt="Product"></a>
             <h3 class="product-title"><a href="shop-single.html">Vented Straw Fedora</a></h3>
@@ -307,8 +322,7 @@ include "./estrutura/head.php";
             </div>
           </div>
         </div>
-        <!-- Product-->
-        <div class="grid-item">
+               <div class="grid-item">
           <div class="product-card">
             <div class="rating-stars"><i class="icon-star filled"></i><i class="icon-star filled"></i><i class="icon-star filled"></i><i class="icon-star filled"></i><i class="icon-star filled"></i>
             </div><a class="product-thumb" href="shop-single.html"><img src="img/shop/products/11.jpg" alt="Product"></a>
@@ -320,7 +334,7 @@ include "./estrutura/head.php";
             </div>
           </div>
         </div>
-        <!-- Product-->
+        
         <div class="grid-item">
           <div class="product-card"><a class="product-thumb" href="shop-single.html"><img src="img/shop/products/04.jpg" alt="Product"></a>
             <h3 class="product-title"><a href="shop-single.html">Waist Leather Belt</a></h3>
@@ -331,7 +345,7 @@ include "./estrutura/head.php";
             </div>
           </div>
         </div>
-        <!-- Product-->
+   
         <div class="grid-item">
           <div class="product-card">
             <div class="product-badge text-danger">50% Off</div><a class="product-thumb" href="shop-single.html"><img src="img/shop/products/01.jpg" alt="Product"></a>
@@ -344,55 +358,56 @@ include "./estrutura/head.php";
               <button class="btn btn-outline-primary btn-sm" data-toast data-toast-type="success" data-toast-position="topRight" data-toast-icon="icon-circle-check" data-toast-title="Product" data-toast-message="successfuly added to cart!">Add to Cart</button>
             </div>
           </div>
+        </div> -->
         </div>
       </div>
+      <!-- Site Footer-->
+
     </div>
-    <!-- Site Footer-->
     <?php
     include "./estrutura/footer.php";
     ?>
-  </div>
-  <!-- Photoswipe container-->
-  <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="pswp__bg"></div>
-    <div class="pswp__scroll-wrap">
-      <div class="pswp__container">
-        <div class="pswp__item"></div>
-        <div class="pswp__item"></div>
-        <div class="pswp__item"></div>
-      </div>
-      <div class="pswp__ui pswp__ui--hidden">
-        <div class="pswp__top-bar">
-          <div class="pswp__counter"></div>
-          <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-          <button class="pswp__button pswp__button--share" title="Share"></button>
-          <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-          <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-          <div class="pswp__preloader">
-            <div class="pswp__preloader__icn">
-              <div class="pswp__preloader__cut">
-                <div class="pswp__preloader__donut"></div>
+    <!-- Photoswipe container-->
+    <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="pswp__bg"></div>
+      <div class="pswp__scroll-wrap">
+        <div class="pswp__container">
+          <div class="pswp__item"></div>
+          <div class="pswp__item"></div>
+          <div class="pswp__item"></div>
+        </div>
+        <div class="pswp__ui pswp__ui--hidden">
+          <div class="pswp__top-bar">
+            <div class="pswp__counter"></div>
+            <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+            <button class="pswp__button pswp__button--share" title="Share"></button>
+            <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+            <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+            <div class="pswp__preloader">
+              <div class="pswp__preloader__icn">
+                <div class="pswp__preloader__cut">
+                  <div class="pswp__preloader__donut"></div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-          <div class="pswp__share-tooltip"></div>
-        </div>
-        <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button>
-        <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button>
-        <div class="pswp__caption">
-          <div class="pswp__caption__center"></div>
+          <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+            <div class="pswp__share-tooltip"></div>
+          </div>
+          <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button>
+          <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button>
+          <div class="pswp__caption">
+            <div class="pswp__caption__center"></div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <!-- Back To Top Button--><a class="scroll-to-top-btn" href="#"><i class="icon-arrow-up"></i></a>
-  <!-- Backdrop-->
-  <div class="site-backdrop"></div>
-  <!-- JavaScript (jQuery) libraries, plugins and custom scripts-->
-  <script src="js/vendor.min.js"></script>
-  <script src="js/scripts.min.js"></script>
+    <!-- Back To Top Button--><a class="scroll-to-top-btn" href="#"><i class="icon-arrow-up"></i></a>
+    <!-- Backdrop-->
+    <div class="site-backdrop"></div>
+    <!-- JavaScript (jQuery) libraries, plugins and custom scripts-->
+    <script src="js/vendor.min.js"></script>
+    <script src="js/scripts.min.js"></script>
 </body>
 
 </html>

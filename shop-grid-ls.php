@@ -7,6 +7,9 @@ session_start();
 
 <?php
 include "./estrutura/head.php";
+
+
+
 ?>
 <!-- Body-->
 
@@ -16,78 +19,62 @@ include "./estrutura/head.php";
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title">Shop Filters</h4>
+          <h4 class="modal-title">Filtros</h4>
           <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         </div>
         <div class="modal-body">
           <!-- Widget Categories-->
           <section class="widget widget-categories">
-            <h3 class="widget-title">Shop Categories</h3>
-            <ul>
-              <li class="has-children expanded"><a href="#">Shoes</a><span>(1138)</span>
-                <ul>
-                  <li><a href="#">Women's</a><span>(508)</span>
-                    <ul>
-                      <li><a href="#">Sneakers</a></li>
-                      <li><a href="#">Heels</a></li>
-                      <li><a href="#">Loafers</a></li>
-                      <li><a href="#">Sandals</a></li>
+            <h3 class="widget-title">Categorias</h3>
+          
+
+            <ul >
+              <?php
+
+              if (isset($_SESSION["lista"])) {
+
+                $lista = $_SESSION["lista"];
+              } else {
+                $exec = new Tray();
+
+                $lista = $exec->buscar("categories/tree");
+
+                $_SESSION["lista"] = $lista;
+              }
+
+             
+              for ($i = 0; $i < count($lista->Category); $i++) {
+                print_r($lista->Category[$i]->Category->name);
+
+                for ($j = 0; $j < count($lista->Category[$i]->Category->children); $j++) {
+
+              ?>
+              <li class="has-children expanded"><a href="/shop-grid-ls.php?category=<?php echo $lista->Category[$i]->Category->children[$j]->Category->id ?>"><?php echo $lista->Category[$i]->Category->children[$j]->Category->name ?></a>
+                  <!-- <li  class="has-children expanded"><span><a href="#"></a><span class="sub-menu-toggle"></span></span> -->
+                    <ul class="offcanvas-submenu">
+                      <?php
+                      for ($k = 0; $k < count($lista->Category[$i]->Category->children[$j]->Category->children); $k++) {
+                      ?>
+
+                        <li><a href="category=<?php echo $lista->Category[$i]->Category->children[$j]->Category->children[$k]->Category->id ?>"><?php echo $lista->Category[$i]->Category->children[$j]->Category->children[$k]->Category->name ?> </a></li>
+
+                      <?php
+
+
+                      }
+                      ?>
                     </ul>
+
                   </li>
-                  <li><a href="#">Men's</a><span>(423)</span>
-                    <ul>
-                      <li><a href="#">Boots</a></li>
-                      <li><a href="#">Oxfords</a></li>
-                      <li><a href="#">Loafers</a></li>
-                      <li><a href="#">Sandals</a></li>
-                    </ul>
-                  </li>
-                  <li><a href="#">Boy's Shoes</a><span>(97)</span></li>
-                  <li><a href="#">Girl's Shoes</a><span>(110)</span></li>
-                </ul>
-              </li>
-              <li class="has-children"><a href="#">Clothing</a><span>(2356)</span>
-                <ul>
-                  <li><a href="#">Women's</a><span>(1032)</span>
-                    <ul>
-                      <li><a href="#">Dresses</a></li>
-                      <li><a href="#">Shirts &amp; Tops</a></li>
-                      <li><a href="#">Swimwear</a></li>
-                      <li><a href="#">Shorts</a></li>
-                    </ul>
-                  </li>
-                  <li><a href="#">Men's</a><span>(937)</span>
-                    <ul>
-                      <li><a href="#">Shirts &amp; Tops</a></li>
-                      <li><a href="#">Shorts</a></li>
-                      <li><a href="#">Swimwear</a></li>
-                      <li><a href="#">Pants</a></li>
-                    </ul>
-                  </li>
-                  <li><a href="#">Kid's Clothing</a><span>(386)</span></li>
-                </ul>
-              </li>
-              <li class="has-children"><a href="#">Bags</a><span>(420)</span>
-                <ul>
-                  <li><a href="#">Handbags</a><span>(180)</span></li>
-                  <li><a href="#">Backpacks</a><span>(132)</span></li>
-                  <li><a href="#">Wallets &amp; Accessories</a><span>(47)</span></li>
-                  <li><a href="#">Luggage</a><span>(61)</span></li>
-                </ul>
-              </li>
-              <li class="has-children"><a href="#">Accessories</a><span>(874)</span>
-                <ul>
-                  <li><a href="#">Sunglasses</a><span>(211)</span></li>
-                  <li><a href="#">Hats</a><span>(195)</span></li>
-                  <li><a href="#">Watches</a><span>(159)</span></li>
-                  <li><a href="#">Jewelry</a><span>(203)</span></li>
-                  <li><a href="#">Belts</a><span>(106)</span></li>
-                </ul>
-              </li>
+
+              <?php
+                }
+              }
+              ?>
             </ul>
           </section>
-          <!-- Widget Price Range-->
-          <section class="widget widget-categories">
+         
+          <!-- <section class="widget widget-categories">
             <h3 class="widget-title">Price Range</h3>
             <form class="price-range-slider" method="post" data-start-min="250" data-start-max="650" data-min="0" data-max="1000" data-step="1">
               <div class="ui-range-slider"></div>
@@ -108,7 +95,7 @@ include "./estrutura/head.php";
               </footer>
             </form>
           </section>
-          <!-- Widget Brand Filter-->
+         
           <section class="widget">
             <h3 class="widget-title">Filter by Brand</h3>
             <div class="custom-control custom-checkbox">
@@ -132,7 +119,7 @@ include "./estrutura/head.php";
               <label class="custom-control-label" for="bahama2">Tommy Bahama&nbsp;<span class="text-muted">(42)</span></label>
             </div>
           </section>
-          <!-- Widget Size Filter-->
+         
           <section class="widget">
             <h3 class="widget-title">Filter by Size</h3>
             <div class="custom-control custom-checkbox">
@@ -152,14 +139,14 @@ include "./estrutura/head.php";
               <label class="custom-control-label" for="s2">S&nbsp;<span class="text-muted">(213)</span></label>
             </div>
           </section>
-          <!-- Promo Banner-->
+        
           <section class="promo-box" style="background-image: url(img/banners/02.jpg);">
-            <!-- Choose between .overlay-dark (#000) or .overlay-light (#fff) with default opacity of 50%. You can overrride default color and opacity values via 'style' attribute.--><span class="overlay-dark" style="opacity: .45;"></span>
+         
             <div class="promo-box-content text-center padding-top-3x padding-bottom-2x">
               <h4 class="text-light text-thin text-shadow">New Collection of</h4>
               <h3 class="text-bold text-light text-shadow">Sunglassess</h3><a class="btn btn-sm btn-primary" href="#">Shop Now</a>
             </div>
-          </section>
+          </section>  -->
         </div>
       </div>
     </div>
@@ -231,29 +218,34 @@ include "./estrutura/head.php";
             <div class="grid-sizer"></div>
 
             <?php
-            $teste = new Tray();
+            $tray = new Tray();
 
             $array[] = array(21);
 
-            $retorno = $teste->buscarComFiltro("products/", $array);
+            if(isset($_GET["category"])){
+              $retorno = $tray->buscarProdutosDaCategoria($_GET["category"]);
+            }else{
+              $retorno = $tray->buscar("products");
+            }
+            
 
-            //print_r($retorno->Products);
+            // print_r($retorno->Products);
 
             for ($i = 0; $i < count($retorno->Products); $i++) {
               //print_r($retorno->Products[$i]->Product->name);
               $produto = $retorno->Products[$i]->Product;
               //print_r($produto->ProductImage[0]->https);
             ?>
-             <div class="grid-item">
+              <div class="grid-item">
                 <div class="product-card">
-                  <div class="product-badge text-danger"></div><a class="product-thumb" href="shop-single.html"><img src="<?php echo $produto->ProductImage[0]->https ?>" alt="Product"></a>
+                  <div class="product-badge text-danger"></div><a class="product-thumb" href="shop-single.php?id=<?php echo $produto->id ?>"><img src="<?php echo $produto->ProductImage[0]->https ?>" alt="Product"></a>
                   <h3 class="product-title"><a href="shop-single.php?id=<?php echo $produto->id ?>"><?php echo $produto->name ?></a></h3>
                   <h4 class="product-price">
                     <!-- <del>$99.99</del>$49.99 -->
                     R$ <?php echo $produto->price ?>
                   </h4>
                   <div class="product-buttons">
-                    <button class="btn btn-outline-secondary btn-sm btn-wishlist" data-toggle="tooltip" title="Whishlist"><i class="icon-heart"></i></button>
+                    <!-- <button class="btn btn-outline-secondary btn-sm btn-wishlist" data-toggle="tooltip" title="Whishlist"><i class="icon-heart"></i></button> -->
                     <button id="btn_add_carrinho" class="btn btn-outline-primary btn-sm" data-toast data-toast-type="success" data-whatever="deu sim" data-toast-position="topRight" data-toast-icon="icon-circle-check" data-toast-title="<?php echo $produto->name ?>" data-toast-message="adicionado ao carrinho.">Adicionar no carrinho</button>
                   </div>
                 </div>
@@ -429,47 +421,50 @@ include "./estrutura/head.php";
             <!-- Widget Categories-->
             <section class="widget widget-categories">
               <h3 class="widget-title">Categorias</h3>
-              <ul>
-                <?php
+              <ul >
+              <?php
 
-                for ($i = 0; $i < count($lista->Category); $i++) {
-                ?>
+              if (isset($_SESSION["lista"])) {
 
-                  <li class="has-children expanded"><a href="#"><?php echo $lista->Category[$i]->Category->name ?></a>
-                    <ul>
+                $lista = $_SESSION["lista"];
+              } else {
+                $exec = new Tray();
+
+                $lista = $exec->buscar("categories/tree");
+
+                $_SESSION["lista"] = $lista;
+              }
+
+             
+              for ($i = 0; $i < count($lista->Category); $i++) {
+                print_r($lista->Category[$i]->Category->name);
+
+                for ($j = 0; $j < count($lista->Category[$i]->Category->children); $j++) {
+
+              ?>
+              <li class="has-children expanded"><a href="/shop-grid-ls.php?category=<?php echo $lista->Category[$i]->Category->children[$j]->Category->id ?>"><?php echo $lista->Category[$i]->Category->children[$j]->Category->name ?></a>
+                  <!-- <li  class="has-children expanded"><span><a href="#"></a><span class="sub-menu-toggle"></span></span> -->
+                    <ul class="offcanvas-submenu">
                       <?php
-                      for ($j = 0; $j < count($lista->Category[$i]->Category->children); $j++) {
+                      for ($k = 0; $k < count($lista->Category[$i]->Category->children[$j]->Category->children); $k++) {
                       ?>
 
-                        <li><a href="#"><?php echo $lista->Category[$i]->Category->children[$j]->Category->name ?></a>
-                          <ul>
-                            <?php
-                            for ($k = 0; $k < count($lista->Category[$i]->Category->children[$j]->Category->children); $k++) {
-                            ?>
-
-                              <li><a href="#"><?php echo $lista->Category[$i]->Category->children[$j]->Category->children[$k]->Category->name ?> </a></li>
-
-                            <?php
-
-
-                            }
-                            ?>
-
-                          </ul>
-                        </li>
-
-
+                        <li><a href="/shop-grid-ls.php?category=<?php echo $lista->Category[$i]->Category->children[$j]->Category->children[$k]->Category->id ?>"><?php echo $lista->Category[$i]->Category->children[$j]->Category->children[$k]->Category->name ?> </a></li>
 
                       <?php
 
+
                       }
-                      ?></ul><?php
-                            }
-                              ?>
+                      ?>
+                    </ul>
 
                   </li>
 
-              </ul>
+              <?php
+                }
+              }
+              ?>
+            </ul>
             </section>
             <!-- Widget Price Range-->
             <section class="widget widget-categories">
@@ -551,8 +546,8 @@ include "./estrutura/head.php";
     </div>
     <!-- Site Footer-->
     <?php
-include "./estrutura/footer.php";
-?>
+    include "./estrutura/footer.php";
+    ?>
   </div>
   <!-- Back To Top Button--><a class="scroll-to-top-btn" href="#"><i class="icon-arrow-up"></i></a>
   <!-- Backdrop-->

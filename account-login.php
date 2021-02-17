@@ -79,47 +79,47 @@ include "./estrutura/head.php";
           </div>
           <div class="col-md-6">
             <div class="padding-top-3x hidden-md-up"></div>
-            <h3 class="margin-bottom-1x">No Account? Register</h3>
-            <p>Registration takes less than a minute but gives you full control over your orders.</p>
-            <form class="row" method="post">
+            <h3 class="margin-bottom-1x">Realize o seu cadastro</h3>
+            <p>O registro leva menos de um minuto, mas oferece controle total sobre seus pedidos.</p>
+            <form class="row" method="post" action="">
               <div class="col-sm-6">
                 <div class="form-group">
-                  <label for="reg-fn">First Name</label>
-                  <input class="form-control" type="text" id="reg-fn" required>
+                  <label for="reg-fn">Nome completo</label>
+                  <input class="form-control" type="text" id="reg-fn" name="nomecompleto" required>
                 </div>
               </div>
               <div class="col-sm-6">
                 <div class="form-group">
-                  <label for="reg-ln">Last Name</label>
-                  <input class="form-control" type="text" id="reg-ln" required>
+                  <label for="reg-ln">Apelido</label>
+                  <input class="form-control" type="text" id="reg-ln" name="apelido" required>
                 </div>
               </div>
               <div class="col-sm-6">
                 <div class="form-group">
-                  <label for="reg-email">E-mail Address</label>
-                  <input class="form-control" type="email" id="reg-email" required>
+                  <label for="reg-email">E-mail</label>
+                  <input class="form-control" type="email" id="reg-email" name="email" required>
                 </div>
               </div>
               <div class="col-sm-6">
                 <div class="form-group">
-                  <label for="reg-phone">Phone Number</label>
-                  <input class="form-control" type="text" id="reg-phone" required>
+                  <label for="reg-phone">Telefone</label>
+                  <input class="form-control" type="text" id="reg-phone" name="telefone" required>
                 </div>
               </div>
               <div class="col-sm-6">
                 <div class="form-group">
-                  <label for="reg-pass">Password</label>
-                  <input class="form-control" type="password" id="reg-pass" required>
+                  <label for="reg-pass">Senha</label>
+                  <input class="form-control" type="password" id="reg-pass" name="senha" required>
                 </div>
               </div>
               <div class="col-sm-6">
                 <div class="form-group">
-                  <label for="reg-pass-confirm">Confirm Password</label>
+                  <label for="reg-pass-confirm">Confirme a senha</label>
                   <input class="form-control" type="password" id="reg-pass-confirm" required>
                 </div>
               </div>
               <div class="col-12 text-center text-sm-right">
-                <button class="btn btn-primary margin-bottom-none" type="submit">Register</button>
+                <button class="btn btn-primary margin-bottom-none" type="submit">Cadastrar</button>
               </div>
             </form>
           </div>

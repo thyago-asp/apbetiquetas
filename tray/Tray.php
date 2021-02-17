@@ -50,7 +50,42 @@ class Tray
     {
         $auth = new auth();
         $params["access_token"] = $auth->getToken();
-        $params["id"] = $id;
+        //  $params["id"] = $id;
+
+        $url = "https://apbetiquetaserotulos.commercesuite.com.br/web_api/products/" . $id . "?" . http_build_query($params);
+
+        ob_start();
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+        curl_exec($ch);
+
+        // JSON de retorno  
+        $resposta = json_decode(ob_get_contents());
+        $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_exec($ch);
+        ob_end_clean();
+        curl_close($ch);
+
+        if ($code == "200") {
+
+            return $resposta;
+            //Tratamento dos dados de resposta da consulta.
+
+        } else {
+            return $url;
+            //Tratamento das mensagens de erro
+
+        }
+    }
+
+    function buscarProdutosDaCategoria($idCategoria)
+    {
+        $auth = new auth();
+        $params["access_token"] = $auth->getToken();
+         $params["category_id"] = $idCategoria;
 
         $url = "https://apbetiquetaserotulos.commercesuite.com.br/web_api/products/?" . http_build_query($params);
 
@@ -69,10 +104,8 @@ class Tray
         ob_end_clean();
         curl_close($ch);
 
-
-      
         if ($code == "200") {
-           
+
             return $resposta;
             //Tratamento dos dados de resposta da consulta.
 
@@ -82,7 +115,6 @@ class Tray
 
         }
     }
-
 
     function buscar($funcao)
     {
