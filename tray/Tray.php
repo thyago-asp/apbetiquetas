@@ -2,10 +2,10 @@
 include "auth.php";
 class Tray
 {
-private 
+    private
 
-    function validar(){
-
+    function validar()
+    {
     }
 
     function buscarComFiltro($funcao, $parametros)
@@ -13,17 +13,16 @@ private
         $auth = new auth();
         $parametros;
 
-        for($i = 0; $i< count($parametros); $i++){
+        for ($i = 0; $i < count($parametros); $i++) {
             //print_r($chave);
-            
+
             $parametros += $parametros[$i];
-            
         }
         //echo $parametros
         $params["access_token"] =  $auth->getToken();
         $params["category_id"] = "21";
 
-        $url = "https://apbetiquetaserotulos.commercesuite.com.br/web_api/" . $funcao . "/?".http_build_query($params);
+        $url = "https://apbetiquetaserotulos.commercesuite.com.br/web_api/" . $funcao . "/?" . http_build_query($params);
 
         ob_start();
 
@@ -44,9 +43,47 @@ private
         if ($code == "200") {
             return $resposta;
         } else  if ($code == "401") {
-        
         }
     }
+
+    function buscarDetalhesDoProduto($id)
+    {
+        $auth = new auth();
+        $params["access_token"] = $auth->getToken();
+        $params["id"] = $id;
+
+        $url = "https://apbetiquetaserotulos.commercesuite.com.br/web_api/products/?" . http_build_query($params);
+
+        ob_start();
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+        curl_exec($ch);
+
+        // JSON de retorno  
+        $resposta = json_decode(ob_get_contents());
+        $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_exec($ch);
+        ob_end_clean();
+        curl_close($ch);
+
+
+      
+        if ($code == "200") {
+           
+            return $resposta;
+            //Tratamento dos dados de resposta da consulta.
+
+        } else {
+            return $url;
+            //Tratamento das mensagens de erro
+
+        }
+    }
+
+
     function buscar($funcao)
     {
         $auth = new auth();
@@ -72,7 +109,6 @@ private
         if ($code == "200") {
             return $resposta;
         } else  if ($code == "401") {
-        
         }
     }
 }

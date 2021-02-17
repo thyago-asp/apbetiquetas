@@ -235,7 +235,7 @@ include "./estrutura/head.php";
 
             $array[] = array(21);
 
-            $retorno = $teste->buscarComFiltro("products", $array);
+            $retorno = $teste->buscarComFiltro("products/", $array);
 
             //print_r($retorno->Products);
 
