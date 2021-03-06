@@ -5,9 +5,8 @@ class auth
     private $token;
 
     public function __construct(){
-        $objeto = $this->gerarChaveDeAcesso();
-        $chave = $objeto->access_token;
-        $this->setToken($chave);
+       $this->gerarChaveDeAcesso();
+        
     }
 
 
@@ -37,10 +36,10 @@ class auth
         curl_close($ch);
 
         if ($code == "200") {
-            return $resposta;
+            $this->setToken($resposta->access_token);
 
         } else  if ($code == "401") {
-            print_r("caiu aqui no 401 do auth");
+         //   print_r("caiu aqui no 401 do auth");
         }
     }
 

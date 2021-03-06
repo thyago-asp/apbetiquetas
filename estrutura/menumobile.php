@@ -21,7 +21,7 @@
       }
       //print_r($lista);
       for ($i = 0; $i < count($lista->Category); $i++) {
-        print_r($lista->Category[$i]->Category->name);
+       // print_r($lista->Category[$i]->Category->name);
 
         for ($j = 0; $j < count($lista->Category[$i]->Category->children); $j++) {
 

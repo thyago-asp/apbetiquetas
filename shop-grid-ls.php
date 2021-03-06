@@ -49,14 +49,14 @@ include "./estrutura/head.php";
                 for ($j = 0; $j < count($lista->Category[$i]->Category->children); $j++) {
 
               ?>
-              <li class="has-children expanded"><a href="/shop-grid-ls.php?category=<?php echo $lista->Category[$i]->Category->children[$j]->Category->id ?>"><?php echo $lista->Category[$i]->Category->children[$j]->Category->name ?></a>
+              <li class="has-children expanded"><a href="/shop-grid-ls.php?c=re&category=<?php echo $lista->Category[$i]->Category->children[$j]->Category->id ?>"><?php echo $lista->Category[$i]->Category->children[$j]->Category->name ?></a>
                   <!-- <li  class="has-children expanded"><span><a href="#"></a><span class="sub-menu-toggle"></span></span> -->
                     <ul class="offcanvas-submenu">
                       <?php
                       for ($k = 0; $k < count($lista->Category[$i]->Category->children[$j]->Category->children); $k++) {
                       ?>
 
-                        <li><a href="category=<?php echo $lista->Category[$i]->Category->children[$j]->Category->children[$k]->Category->id ?>"><?php echo $lista->Category[$i]->Category->children[$j]->Category->children[$k]->Category->name ?> </a></li>
+                        <li><a href="/shop-grid-ls.php?c=re&category=<?php echo $lista->Category[$i]->Category->children[$j]->Category->children[$k]->Category->id ?>"><?php echo $lista->Category[$i]->Category->children[$j]->Category->children[$k]->Category->name ?> </a></li>
 
                       <?php
 
@@ -442,14 +442,14 @@ include "./estrutura/head.php";
                 for ($j = 0; $j < count($lista->Category[$i]->Category->children); $j++) {
 
               ?>
-              <li class="has-children expanded"><a href="/shop-grid-ls.php?category=<?php echo $lista->Category[$i]->Category->children[$j]->Category->id ?>"><?php echo $lista->Category[$i]->Category->children[$j]->Category->name ?></a>
+              <li class="has-children expanded"><a href="/shop-grid-ls.php?c=re&category=<?php echo $lista->Category[$i]->Category->children[$j]->Category->id ?>"><?php echo $lista->Category[$i]->Category->children[$j]->Category->name ?></a>
                   <!-- <li  class="has-children expanded"><span><a href="#"></a><span class="sub-menu-toggle"></span></span> -->
                     <ul class="offcanvas-submenu">
                       <?php
                       for ($k = 0; $k < count($lista->Category[$i]->Category->children[$j]->Category->children); $k++) {
                       ?>
 
-                        <li><a href="/shop-grid-ls.php?category=<?php echo $lista->Category[$i]->Category->children[$j]->Category->children[$k]->Category->id ?>"><?php echo $lista->Category[$i]->Category->children[$j]->Category->children[$k]->Category->name ?> </a></li>
+                        <li><a href="/shop-grid-ls.php?c=re&category=<?php echo $lista->Category[$i]->Category->children[$j]->Category->children[$k]->Category->id ?>"><?php echo $lista->Category[$i]->Category->children[$j]->Category->children[$k]->Category->name ?> </a></li>
 
                       <?php
 
