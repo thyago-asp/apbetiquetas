@@ -6,7 +6,6 @@ include "./tray/Tray.php";
 if (isset($_GET["id"])) {
   session_start();
 
-  echo session_id();
 } else {
   header('Location: /');
 }
@@ -51,9 +50,6 @@ include "./estrutura/head.php";
 
   $produtosDaCategoria = $tray->buscarProdutosDaCategoria($produto->category_id);
 
-  // echo session_id();
-  // print_r($produtosDaCategoria->Products[1]->Product->name)
-  //print_r($objProduto->Products[0]->Product->ProductImage[0]->http);
   ?>
 
   <!-- Off-Canvas Wrapper-->
@@ -61,11 +57,6 @@ include "./estrutura/head.php";
 
     <!-- Position it -->
     <div style="position: absolute; top: 0; right: 0;" id="mensagemToast">
-
-      <!-- Then put toasts within -->
-
-
-
 
     </div>
     <!-- Page Title-->
@@ -293,7 +284,7 @@ include "./estrutura/head.php";
           quant: quant,
           acao: "add"
         }, function(data) {
-
+          console.log(data)
           // var mensagem = document.getElementById('mensagemToast');
 
           var str = "<div id=\"mensagemAviso\" class=\"toast alert-success\" role=\"alert\" aria-live=\"assertive\" aria-atomic=\"true\" style=\"width: 350px;\">";
@@ -395,10 +386,10 @@ include "./estrutura/head.php";
         }, function(data) {
           const obj = JSON.parse(data);
           
-          var quant = 0;
+           quant = 0;
           obj.Products.forEach(function(nome, i) {
             
-            quant = quant + nome.quantity;
+            quant = quant + parseInt(nome.quantity);
           })
           console.log(quant);
           document.getElementById('total_carrinho').innerHTML = "R$ " + obj.total;

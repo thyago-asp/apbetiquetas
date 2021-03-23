@@ -29,6 +29,12 @@ if (isset($_SERVER["HTTP_X_REQUESTED_WITH"]) && $_SERVER["HTTP_X_REQUESTED_WITH"
                 $obj->refreshCarts();
             break;
 
+            case 'excluir':
+                $obj = new CartsController();
+                $idProduto = filter_input(INPUT_POST, 'idProduto', FILTER_SANITIZE_STRING);
+                $obj->excluirItem($idProduto);
+            break;
+
         default:
             # code...
             break;
@@ -56,10 +62,20 @@ class CartsController
     {
         $tray = new Tray();
 
-        $dados = $tray->buscarComFiltro("carts", session_id());
+        $dados = $tray->buscarCarrinhoCompleto(session_id());
         $carrinho = $dados->Cart;
 
         echo json_encode($carrinho);
+        return;
+    }
+
+    function excluirItem($item){
+        $tray = new Tray();
+
+        $retorno = $tray->excluirItemCarrinho(session_id(), $item);
+       
+
+        echo json_encode($retorno);
         return;
     }
 }

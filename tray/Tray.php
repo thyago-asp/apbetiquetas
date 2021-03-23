@@ -2,17 +2,17 @@
 include "auth.php";
 class Tray
 {
-    
 
-    function buscarComFiltro($funcao, $parametro)
+
+    function buscarCarrinhoCompleto($sessao)
     {
         $auth = new auth();
-        
+
         //echo $parametros
         $params["access_token"] =  $auth->getToken();
         $params["category_id"] = "21";
 
-        $url = "https://apbetiquetaserotulos.commercesuite.com.br/web_api/" . $funcao . "/".$parametro."/complete?" . http_build_query($params);
+        $url = "https://apbetiquetaserotulos.commercesuite.com.br/web_api/carts/" . $sessao . "/complete?" . http_build_query($params);
 
         ob_start();
 
@@ -30,13 +30,13 @@ class Tray
         ob_end_clean();
         curl_close($ch);
 
-        
+
         if ($code == "200") {
             return $resposta;
         } else  if ($code == "404") {
-           $t = new Tray();
+            $t = new Tray();
 
-           $t->criarCarrinhoVazio();
+            $t->criarCarrinhoVazio();
         }
     }
 
@@ -138,27 +138,32 @@ class Tray
         }
     }
 
-    function criarCarrinhoVazio(){
+    function criarCarrinhoVazio()
+    {
         $auth = new auth();
 
         $params["access_token"] = $auth->getToken();
         $params["Cart"]["session_id"] = session_id();
-        
+
 
         $url = "https://apbetiquetaserotulos.commercesuite.com.br/web_api/carts/?" . http_build_query($params);
         ob_start();
-        
+
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($params));
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-            'Content-Type: application/json',
-            'Content-Length: ' . strlen(json_encode($params)))
+        curl_setopt(
+            $ch,
+            CURLOPT_HTTPHEADER,
+            array(
+                'Content-Type: application/json',
+                'Content-Length: ' . strlen(json_encode($params))
+            )
         );
-       
+
         curl_exec($ch);
 
         // JSON de retorno  
@@ -167,17 +172,17 @@ class Tray
         curl_exec($ch);
         ob_end_clean();
         curl_close($ch);
-        
+
         if ($code == "200") {
             return $resposta->{"message"};
         } else  if ($code == "400") {
-          //  print_r($resposta->causes->{"Cart"}->{"product_id"}[0]);
+            //  print_r($resposta->causes->{"Cart"}->{"product_id"}[0]);
         }
     }
 
     function createNewCarts(Produto $product)
     {
-       
+
         $auth = new auth();
 
         $params["access_token"] = $auth->getToken();
@@ -190,18 +195,22 @@ class Tray
 
         $url = "https://apbetiquetaserotulos.commercesuite.com.br/web_api/carts/?" . http_build_query($params);
         ob_start();
-        
+
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($params));
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-            'Content-Type: application/json',
-            'Content-Length: ' . strlen(json_encode($params)))
+        curl_setopt(
+            $ch,
+            CURLOPT_HTTPHEADER,
+            array(
+                'Content-Type: application/json',
+                'Content-Length: ' . strlen(json_encode($params))
+            )
         );
-       
+
         curl_exec($ch);
 
         // JSON de retorno  
@@ -210,37 +219,58 @@ class Tray
         curl_exec($ch);
         ob_end_clean();
         curl_close($ch);
-        
+
         if ($code == "200") {
             return $resposta->{"message"};
         } else  if ($code == "400") {
-          //  print_r($resposta->causes->{"Cart"}->{"product_id"}[0]);
+            return print_r($resposta->causes->{"Cart"}->{"product_id"}[0]);
         }
     }
 
-    
+    function excluirItemCarrinho($sessao, $item)
+    {
+        $auth = new auth();
+
+        $params["access_token"] =  $auth->getToken();
+
+        $url = "https://apbetiquetaserotulos.commercesuite.com.br/web_api/carts/".$sessao."/".$item."?" . http_build_query($params);
+
+        ob_start();
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($params));
+        curl_setopt(
+            $ch,
+            CURLOPT_HTTPHEADER,
+            array(
+                'Content-Type: application/json',
+                'Content-Length: ' . strlen(json_encode($params))
+            )
+        );
+
+        curl_exec($ch);
+
+
+        // JSON de retorno  
+
+        $resposta = json_decode(ob_get_contents());
+        $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+        ob_end_clean();
+        curl_close($ch);
+        print_r($resposta);
+        if ($code == "200") {
+
+            //Tratamento dos dados de resposta da consulta.
+            return "excluiu";
+        } else {
+            return $resposta;
+            //Tratamento das mensagens de erro
+
+        }
+    }
 }
-
-
-/*$exec = new Tray();
-
-$lista = $exec->buscar("categories/tree");
-//print_r($lista);
-for ($i = 0; $i < count($lista->Category); $i++) {
-   // print_r($lista->Category[$i]->Category->name);
-    for ($j = 0; $j < count($lista->Category[$i]->Category->children); $j++) {
-   //     echo "<br>";
-   //     echo " - "; 
-   //     print_r($lista->Category[$i]->Category->children[$j]->Category->name);
-        
-        for ($k = 0; $k < count($lista->Category[$i]->Category->children[$j]->Category->children); $k++) {
-    //        echo "<br>";
-     //       echo " - - "; 
-     //       print_r($lista->Category[$i]->Category->children[$j]->Category->children[$k]->Category->name);
-     //       echo "<br>";
-        }
-     //   echo "<br>";
-    }
-
- //   echo "<br>";
-}*/

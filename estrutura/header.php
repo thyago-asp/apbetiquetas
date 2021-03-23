@@ -40,10 +40,10 @@
         <?php
         $tray = new Tray();
 
-        $dados = $tray->buscarComFiltro("carts", session_id());
+        $dados = $tray->buscarCarrinhoCompleto(session_id());
         $quantCarrinho = 0;
         $valorCarrinho = 0.00;
-        
+     
         if ($dados !== null) {
           $carrinho = $dados->Cart;
 
@@ -55,7 +55,7 @@
         }
 
         ?>
-        <div class="cart"><a href="cart.html"></a><i class="icon-bag"></i><span class="count" id="quantCarrinho"><?php echo $quantCarrinho ?></span><span class="subtotal" id="total_carrinho">R$ <?php echo $valorCarrinho?> </span>
+        <div class="cart"><a href="cart.php"></a><i class="icon-bag"></i><span class="count" id="quantCarrinho"><?php echo $quantCarrinho ?></span><span class="subtotal" id="total_carrinho">R$ <?php echo $valorCarrinho?> </span>
 
         </div>
       </div>
