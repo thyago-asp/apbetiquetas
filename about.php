@@ -10,7 +10,7 @@ include "./estrutura/head.php";
 <!-- Body-->
 
 <body>
-  <?php
+  <?php 
 
   // Off-Canvas Category Menu
   include __DIR__ . "/estrutura/menu.php";
