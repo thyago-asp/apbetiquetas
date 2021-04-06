@@ -23,18 +23,33 @@
 
         <div class="account"><a href="account-orders.html"></a><i class="icon-head"></i>
           <ul class="toolbar-dropdown">
-            <li class="sub-menu-user">
-              <div class="user-ava"><img src="img/account/user-ava-sm.jpg" alt="Daniel Adams">
-              </div>
-              <div class="user-info">
-                <h6 class="user-name">Daniel Adams</h6><span class="text-xs text-muted">290 Reward points</span>
-              </div>
-            </li>
-            <li><a href="account-profile.html">My Profile</a></li>
-            <li><a href="account-orders.html">Orders List</a></li>
-            <li><a href="account-wishlist.html">Wishlist</a></li>
-            <li class="sub-menu-separator"></li>
-            <li><a href="#"> <i class="icon-unlock"></i>Logout</a></li>
+            <?php
+         
+          //   echo $_SESSION["id_customer"];
+            if (isset($_SESSION["id_customer"])) {
+             
+            ?>
+              <li class="sub-menu-user">
+                <div class="user-ava"><img src="img/account/user-ava-sm.jpg" alt="Daniel Adams">
+                </div>
+                <div class="user-info">
+                  <h6 class="user-name">Daniel Adams</h6><span class="text-xs text-muted">290 Reward points</span>
+                </div>
+              </li>
+              <li><a href="account-profile.html">My Profile</a></li>
+              <li><a href="account-orders.html">Orders List</a></li>
+              <li><a href="account-wishlist.html">Wishlist</a></li>
+              <li class="sub-menu-separator"></li>
+              <li><a href="#"> <i class="icon-unlock"></i>Logout</a></li>
+            <?php
+            } else {
+            ?>
+
+              <li><a href="/account-login.php"> <i class="icon-lock"></i>Fazer Login</a></li>
+            <?php
+            }
+            ?>
+
           </ul>
         </div>
         <?php
@@ -43,7 +58,7 @@
         $dados = $tray->buscarCarrinhoCompleto(session_id());
         $quantCarrinho = 0;
         $valorCarrinho = 0.00;
-     
+
         if ($dados !== null) {
           $carrinho = $dados->Cart;
 
@@ -52,10 +67,12 @@
             $quantCarrinho = $quantCarrinho + $value->quantity;
           }
           $valorCarrinho = $carrinho->total;
+          $valorCarrinho = number_format($valorCarrinho,2,",",".");
+          $_SESSION["valor_carrinho"] = $valorCarrinho;
         }
 
         ?>
-        <div class="cart"><a href="cart.php"></a><i class="icon-bag"></i><span class="count" id="quantCarrinho"><?php echo $quantCarrinho ?></span><span class="subtotal" id="total_carrinho">R$ <?php echo $valorCarrinho?> </span>
+        <div class="cart"><a href="cart.php"></a><i class="icon-bag"></i><span class="count" id="quantCarrinho"><?php echo $quantCarrinho ?></span><span class="subtotal" id="total_carrinho">R$ <?php echo $valorCarrinho ?> </span>
 
         </div>
       </div>
